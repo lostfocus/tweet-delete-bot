@@ -9,12 +9,12 @@ const bot = new Twit(config);
 // create variable stores 
 let statuses_count = 0;
 const now = Date.now();
-const ten_days = 864000000;
+const seven_days = 608400000;
 let to_delete = 0;
 
 // helper functions
 function olderThanTenDays(check_date) {
-    return check_date < now - ten_days
+    return check_date < now - seven_days
 };
 
 function promiseCountStatuses() {
