@@ -5,11 +5,11 @@ const screen_name = require('./screen_name');
 const bot = new Twit(config);
 console.log(screen_name);
 const now = Date.now();
-const ten_days = 864000000;
+const seven_days = 604800000;
 
 // helper functions
-function olderThanTenDays(check_date) {
-    return check_date < now - ten_days
+function olderThanSevenDays(check_date) {
+    return check_date < now - seven_days
 };
 
 function getUserLikes(user, done) {
@@ -57,7 +57,7 @@ getUserLikes(screen_name, (undefined, data) => {
   data.shift();
   // console.log(data[90]);
   for (var i = 0; i < data.length -1; i++) {
-    if (olderThanTenDays(Date.parse(data[i].created_at)) && data[i].user.screen_name !== screen_name) {
+    if (olderThanSevenDays(Date.parse(data[i].created_at)) && data[i].user.screen_name !== screen_name) {
       bot.post('favorites/destroy', {
         id: data[i].id_str.toString()
       }, (e, d, r) => {
