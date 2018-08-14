@@ -13,7 +13,7 @@ const seven_days = 608400000;
 let to_delete = 0;
 
 // helper functions
-function olderThanTenDays(check_date) {
+function olderThanSevenDays(check_date) {
     return check_date < now - seven_days
 };
 
@@ -83,8 +83,8 @@ getUserHistory(screen_name, (undefined, data) => {
     data.pop();
     console.log('data length after shift and pop',data.length)
     for (var i = data.length - 1; i > -1; i--) {
-         if (olderThanTenDays(Date.parse(data[i].created_at)) && !data[i].favorited || 
-             olderThanTenDays(Date.parse(data[i].created_at)) && data[i].favorited && data[i].retweeted) {
+         if (olderThanSevenDays(Date.parse(data[i].created_at)) && !data[i].favorited || 
+             olderThanSevenDays(Date.parse(data[i].created_at)) && data[i].favorited && data[i].retweeted) {
              to_delete++;
              bot.post('statuses/destroy/:id', {
                  id: data[i].id_str.toString()
