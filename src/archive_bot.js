@@ -91,11 +91,11 @@ getUserHistory(screen_name, (undefined, data) => {
              fs.writeFile('data/'+ data[i].id_str.toString() + '.json', jsondata, (err) => {
                 if (err) {
                     throw err;
+                } else {
+                    console.log("JSON data is saved.");
                 }
-                console.log("JSON data is saved.");
             });
 
-             console.log(jsondata);
           } 
         }
     console.log(to_archive, 'tweets archived!');
