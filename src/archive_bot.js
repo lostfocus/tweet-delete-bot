@@ -11,7 +11,7 @@ const bot = new Twit(config);
 let statuses_count = 0;
 const now = Date.now();
 const seven_days = 608400000;
-let to_delete = 0;
+let to_archive = 0;
 
 // helper functions
 function olderThanSevenDays(check_date) {
@@ -86,7 +86,7 @@ getUserHistory(screen_name, (undefined, data) => {
     for (var i = data.length - 1; i > -1; i--) {
          if (olderThanSevenDays(Date.parse(data[i].created_at)) && !data[i].favorited || 
              olderThanSevenDays(Date.parse(data[i].created_at)) && data[i].favorited && data[i].retweeted) {
-             to_delete++;
+             to_archive++;
              var jsondata = JSON.stringify(data[i], null , 4);
              fs.writeFile('data/'+ data[i].id_str.toString() + '.json', jsondata, (err) => {
                 if (err) {
@@ -98,6 +98,6 @@ getUserHistory(screen_name, (undefined, data) => {
              console.log(jsondata);
           } 
         }
-    console.log(to_delete, 'tweets deleted!');
+    console.log(to_archive, 'tweets archived!');
 });
 
